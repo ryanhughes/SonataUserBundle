@@ -15,6 +15,7 @@ use FOS\UserBundle\Controller\ResettingController;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -40,9 +41,9 @@ class AdminResettingController extends ResettingController
     /**
      * {@inheritdoc}
      */
-    public function sendEmailAction()
+    public function sendEmailAction(Request $request)
     {
-        $username = $this->container->get('request')->request->get('username');
+        $username = $request->request->get('username');
 
         /** @var $user UserInterface */
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
@@ -79,9 +80,9 @@ class AdminResettingController extends ResettingController
     /**
      * {@inheritdoc}
      */
-    public function checkEmailAction()
+    public function checkEmailAction(Request $request)
     {
-        $session = $this->container->get('session');
+        $session = $request->getSession();
         $email = $session->get(static::SESSION_EMAIL);
         $session->remove(static::SESSION_EMAIL);
 
@@ -100,7 +101,7 @@ class AdminResettingController extends ResettingController
     /**
      * {@inheritdoc}
      */
-    public function resetAction($token)
+    public function resetAction(Request $request, $token)
     {
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new RedirectResponse($this->container->get('router')->generate('sonata_admin_dashboard'));

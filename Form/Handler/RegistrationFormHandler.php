@@ -12,7 +12,7 @@
 
 namespace Sonata\UserBundle\Form\Handler;
 
-use FOS\UserBundle\Form\Handler\RegistrationFormHandler as BaseHandler;
+use FOS\UserBundle\Form\Type\RegistrationFormType as BaseHandler;
 
 /**
  * This file is an adapted version of FOS User Bundle RegistrationFormHandler class.

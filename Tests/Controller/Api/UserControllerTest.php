@@ -128,7 +128,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testPostUserGroupAction()
     {
-        $user = $this->getMock('Sonata\UserBundle\Entity\BaseUser');
+        $user = $this->getMock('Sonata\Test\UserBundle\Controller\Api\DummyUser');
         $user->expects($this->once())->method('hasGroup')->will($this->returnValue(false));
 
         $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
@@ -147,7 +147,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testPostUserGroupInvalidAction()
     {
-        $user = $this->getMock('Sonata\UserBundle\Entity\BaseUser');
+        $user = $this->getMock('Sonata\Test\UserBundle\Controller\Api\DummyUser');
         $user->expects($this->once())->method('hasGroup')->will($this->returnValue(true));
 
         $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
@@ -170,7 +170,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testDeleteUserGroupAction()
     {
-        $user = $this->getMock('Sonata\UserBundle\Entity\BaseUser');
+        $user = $this->getMock('Sonata\Test\UserBundle\Controller\Api\DummyUser');
         $user->expects($this->once())->method('hasGroup')->will($this->returnValue(true));
 
         $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
@@ -189,7 +189,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testDeleteUserGroupInvalidAction()
     {
-        $user = $this->getMock('Sonata\UserBundle\Entity\BaseUser');
+        $user = $this->getMock('Sonata\Test\UserBundle\Controller\Api\DummyUser');
         $user->expects($this->once())->method('hasGroup')->will($this->returnValue(false));
 
         $group = $this->getMock('FOS\UserBundle\Model\GroupInterface');
@@ -259,4 +259,9 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
 
         return new UserController($userManager, $groupManager, $formFactory);
     }
+}
+
+class DummyUser extends \FOS\UserBundle\Model\User
+{
+
 }
